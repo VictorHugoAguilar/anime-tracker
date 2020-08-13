@@ -1,4 +1,6 @@
-# anime-tracker
+# Aplicación FullStack MERN - Películas o Series
+
+Aplicación realizada con MONGO - REACT - NODE - EXPRESS
 
 # Levantar el servidor mongo
  ´´´
