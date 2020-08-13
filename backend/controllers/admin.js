@@ -1,7 +1,27 @@
 const Anime = require('../models/Anime');
 
-exports.getIndex = (req, res) => {
-    res.status(200).render('index');
+exports.getIndex = async (req, res) => {
+    const anime = await Anime.find((data) => data);
+
+    try {
+        console.log(anime);
+        res.status(200).render('index', { anime: anime });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+exports.getAnime = async (req, res) => {
+    const animeId = req.params.animeId;
+
+    const anime = await Anime.findById(animeId, (anime) => anime);
+
+    try {
+        console.log(anime);
+        res.status(200).render('anime', { anime: anime });
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 exports.getAddAnime = (req, res) => {
@@ -15,4 +35,18 @@ exports.postAnime = (req, res) => {
     anime.save();
     console.log('Anime Added to the database');
     res.status(201).redirect('/');
+};
+
+exports.postDelete = async (req, res) => {
+    const animeId = req.body.animeId;
+
+    const anime = await Anime.findByIdAndRemove(animeId, (data) => data);
+
+    try {
+        console.log(anime);
+        console.log('Item Deleted');
+        res.redirect('/');
+    } catch (error) {
+        console.log(error);
+    }
 };
